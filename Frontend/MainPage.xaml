@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Frontend.MainPage">
+
+    <ScrollView>
+       <VerticalStackLayout Padding="30" Spacing="25">
+
+    <Button Text="Load Products"
+            Clicked="OnLoadProductsClicked"
+            HorizontalOptions="Center" />
+
+    <CollectionView x:Name="ProductsList">
+        <CollectionView.ItemTemplate>
+           <DataTemplate>
+        <Border Margin="0,5" 
+                Padding="10" 
+                BackgroundColor="#F0F0F0"
+                StrokeThickness="0">
+            
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="10" />
+            </Border.StrokeShape>
+
+            <VerticalStackLayout>
+                <Label Text="{Binding Name}" FontAttributes="Bold" FontSize="18" />
+                <HorizontalStackLayout Spacing="10">
+                    <Label Text="{Binding Price, StringFormat='${0:F2}'}" TextColor="Green" />
+                    <Label Text="{Binding StockQuantity, StringFormat='Stock: {0}'}" />
+                </HorizontalStackLayout>
+            </VerticalStackLayout>
+        </Border>
+    </DataTemplate>
+        </CollectionView.ItemTemplate>
+    </CollectionView>
+
+</VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>
