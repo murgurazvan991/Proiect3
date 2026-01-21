@@ -20,6 +20,8 @@ public partial class MainPage : TabbedPage
         _saleServices = saleServices;
         _db = db;
 
+        _db.Database.EnsureDeleted();
+
         _db.Database.EnsureCreated();
     }
 
