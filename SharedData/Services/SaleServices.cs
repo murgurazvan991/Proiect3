@@ -1,3 +1,4 @@
+namespace SharedData;
 public class SaleServices
 {
     private readonly AppDbContext _db;

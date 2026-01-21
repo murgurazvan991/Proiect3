@@ -136,6 +136,12 @@ D:\Users\info\Facultate\Anul_2\Modulul_2\MediiDeProgramare\Proiect3\Backend\obj\
 D:\Users\info\Facultate\Anul_2\Modulul_2\MediiDeProgramare\Proiect3\Backend\obj\Debug\net9.0\Backend.pdb
 D:\Users\info\Facultate\Anul_2\Modulul_2\MediiDeProgramare\Proiect3\Backend\obj\Debug\net9.0\Backend.genruntimeconfig.cache
 D:\Users\info\Facultate\Anul_2\Modulul_2\MediiDeProgramare\Proiect3\Backend\obj\Debug\net9.0\ref\Backend.dll
+C:\Users\iulia\Desktop\bean\Uni\MIP\Proiect3\Backend\obj\Debug\net9.0\Backend.csproj.AssemblyReference.cache
+C:\Users\iulia\Desktop\bean\Uni\MIP\Proiect3\Backend\obj\Debug\net9.0\Backend.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\iulia\Desktop\bean\Uni\MIP\Proiect3\Backend\obj\Debug\net9.0\Backend.AssemblyInfoInputs.cache
+C:\Users\iulia\Desktop\bean\Uni\MIP\Proiect3\Backend\obj\Debug\net9.0\Backend.AssemblyInfo.cs
+C:\Users\iulia\Desktop\bean\Uni\MIP\Proiect3\Backend\obj\Debug\net9.0\Backend.csproj.CoreCompileInputs.cache
+C:\Users\iulia\Desktop\bean\Uni\MIP\Proiect3\Backend\obj\Debug\net9.0\Backend.sourcelink.json
 C:\Users\iulia\Desktop\bean\Uni\MIP\Proiect3\Backend\bin\Debug\net9.0\Backend.exe
 C:\Users\iulia\Desktop\bean\Uni\MIP\Proiect3\Backend\bin\Debug\net9.0\Backend.deps.json
 C:\Users\iulia\Desktop\bean\Uni\MIP\Proiect3\Backend\bin\Debug\net9.0\Backend.runtimeconfig.json
@@ -264,12 +270,6 @@ C:\Users\iulia\Desktop\bean\Uni\MIP\Proiect3\Backend\bin\Debug\net9.0\runtimes\w
 C:\Users\iulia\Desktop\bean\Uni\MIP\Proiect3\Backend\bin\Debug\net9.0\runtimes\win-x86\native\e_sqlite3.dll
 C:\Users\iulia\Desktop\bean\Uni\MIP\Proiect3\Backend\bin\Debug\net9.0\SharedData.dll
 C:\Users\iulia\Desktop\bean\Uni\MIP\Proiect3\Backend\bin\Debug\net9.0\SharedData.pdb
-C:\Users\iulia\Desktop\bean\Uni\MIP\Proiect3\Backend\obj\Debug\net9.0\Backend.csproj.AssemblyReference.cache
-C:\Users\iulia\Desktop\bean\Uni\MIP\Proiect3\Backend\obj\Debug\net9.0\Backend.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\iulia\Desktop\bean\Uni\MIP\Proiect3\Backend\obj\Debug\net9.0\Backend.AssemblyInfoInputs.cache
-C:\Users\iulia\Desktop\bean\Uni\MIP\Proiect3\Backend\obj\Debug\net9.0\Backend.AssemblyInfo.cs
-C:\Users\iulia\Desktop\bean\Uni\MIP\Proiect3\Backend\obj\Debug\net9.0\Backend.csproj.CoreCompileInputs.cache
-C:\Users\iulia\Desktop\bean\Uni\MIP\Proiect3\Backend\obj\Debug\net9.0\Backend.sourcelink.json
 C:\Users\iulia\Desktop\bean\Uni\MIP\Proiect3\Backend\obj\Debug\net9.0\Backend.csproj.Up2Date
 C:\Users\iulia\Desktop\bean\Uni\MIP\Proiect3\Backend\obj\Debug\net9.0\Backend.dll
 C:\Users\iulia\Desktop\bean\Uni\MIP\Proiect3\Backend\obj\Debug\net9.0\refint\Backend.dll

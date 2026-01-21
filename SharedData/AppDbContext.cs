@@ -1,4 +1,9 @@
 using Microsoft.EntityFrameworkCore;
+using SharedData;
+
+namespace SharedData;
+
+
 
 public class AppDbContext : DbContext
 {

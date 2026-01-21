@@ -1,3 +1,7 @@
+using Microsoft.EntityFrameworkCore;
+using SharedData;
+
+namespace SharedData;
 public class ProductServices
 {
     private readonly AppDbContext _db;
@@ -10,7 +14,7 @@ public class ProductServices
     public async Task AddProductAsync(Product product)
     {
         _db.Products.Add(product);
-        _db.SaveChanges();
+        await _db.SaveChangesAsync();
         Console.WriteLine($"Product with id {product.Id} added successfully.");
     }
 
@@ -20,7 +24,7 @@ public class ProductServices
         if (product != null)
         {
             _db.Products.Remove(product);
-            _db.SaveChanges();
+            await _db.SaveChangesAsync();
             Console.WriteLine($"Product with id {productId} removed successfully.");
         }
         else
@@ -40,7 +44,7 @@ public class ProductServices
             product.CategoryId = newCategory.Id;
             product.Category = newCategory;
 
-            _db.SaveChanges();
+            await _db.SaveChangesAsync();
             Console.WriteLine($"Product with id {id} updated successfully.");
         }
         else
@@ -58,7 +62,7 @@ public class ProductServices
 
     public async Task<List<Product>> GetAllAsync(string? searchText, int? categoryId)
     {
-        var query = _db.Products.AsQueryable();
+        var query = _db.Products.Include(p => p.Category).AsQueryable();
 
         if (!string.IsNullOrEmpty(searchText))
         {
@@ -70,6 +74,6 @@ public class ProductServices
             query = query.Where(p => p.CategoryId == categoryId.Value);
         }
 
-        return query.ToList();
+        return await query.ToListAsync();
     }
 }

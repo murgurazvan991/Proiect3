@@ -1,3 +1,4 @@
+namespace SharedData;
 public class UserServices
 {
     private readonly AppDbContext _db;

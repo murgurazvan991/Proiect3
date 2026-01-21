@@ -1,3 +1,4 @@
+namespace SharedData;
 public class SaleItem
 {
     public int Id { get; set; }
