@@ -1,4 +1,7 @@
+using Microsoft.EntityFrameworkCore;
+
 namespace SharedData;
+
 public class SaleServices
 {
     private readonly AppDbContext _db;
@@ -8,31 +11,31 @@ public class SaleServices
         _db = db;
     }
 
-    public void AddSale(Sale sale)
+    public async Task AddSaleAsync(Sale sale)
     {
         _db.Sales.Add(sale);
-        _db.SaveChanges();
-        Console.WriteLine($"Sale with id {sale.Id} added successfully.");
+        await _db.SaveChangesAsync();
     }
 
-
-    public string GetSales()
+    // Changed to Async. 
+    // Ideally, this should return List<Sale>, but returning a report string is fine for now.
+    public async Task<string> GetSalesReportAsync()
     {
-        var sales = _db.Sales.ToList();
-        var saleItems = _db.SaleItems.ToList();
+        var sales = await _db.Sales.ToListAsync();
+        var saleItems = await _db.SaleItems.ToListAsync();
         
-        string result = "";
+        string result = "--- Sales Report ---\n";
         
         foreach (var sale in sales)
         {
-            result += $"Sale ID: {sale.Id}, Date: {sale.Date}, User ID: {sale.UserId}, Total Amount: {sale.TotalAmount}\n";
+            result += $"Sale ID: {sale.Id} | Date: {sale.Date} | Total: ${sale.TotalAmount}\n";
             
-            var itemsFromSale = saleItems.Where(si => si.SaleId == sale.Id).ToList();
-            
-            foreach (var item in itemsFromSale)
+            var items = saleItems.Where(si => si.SaleId == sale.Id);
+            foreach (var item in items)
             {
-                result += $"  - Item ID: {item.Id}, Product ID: {item.ProductId}, Quantity: {item.Quantity}, Unit Price: {item.UnitPrice}, Line Total: {item.LineTotal}\n";
+                result += $"   * Product ID: {item.ProductId} - Qty: {item.Quantity}\n";
             }
+            result += "\n";
         }
         
         return result;

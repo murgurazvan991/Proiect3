@@ -1,40 +1,61 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Frontend.MainPage">
+<TabbedPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            x:Class="Frontend.MainPage"
+            Title="Shop Manager">
 
-    <ScrollView>
-       <VerticalStackLayout Padding="30" Spacing="25">
-
-    <Button Text="Load Products"
-            Clicked="OnLoadProductsClicked"
-            HorizontalOptions="Center" />
-
-    <CollectionView x:Name="ProductsList">
-        <CollectionView.ItemTemplate>
-           <DataTemplate>
-        <Border Margin="0,5" 
-                Padding="10" 
-                BackgroundColor="#F0F0F0"
-                StrokeThickness="0">
+    <ContentPage Title="Products">
+        <Grid RowDefinitions="Auto, *" Padding="20" RowSpacing="10">
+            <Button Grid.Row="0" Text="Add Demo Product" Clicked="OnAddProductClicked" />
             
-            <Border.StrokeShape>
-                <RoundRectangle CornerRadius="10" />
-            </Border.StrokeShape>
+            <CollectionView Grid.Row="1" x:Name="ProductsList">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Border Padding="10" Margin="0,5" BackgroundColor="#F0F0F0" StrokeThickness="0">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="10"/>
+                            </Border.StrokeShape>
+                            <VerticalStackLayout>
+                                <Label Text="{Binding Name}" FontAttributes="Bold" FontSize="16"/>
+                                <Label Text="{Binding Price, StringFormat='Price: ${0:F2}'}" TextColor="Green"/>
+                                <Label Text="{Binding StockQuantity, StringFormat='Stock: {0}'}" TextColor="Gray"/>
+                            </VerticalStackLayout>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </Grid>
+    </ContentPage>
 
-            <VerticalStackLayout>
-                <Label Text="{Binding Name}" FontAttributes="Bold" FontSize="18" />
-                <HorizontalStackLayout Spacing="10">
-                    <Label Text="{Binding Price, StringFormat='${0:F2}'}" TextColor="Green" />
-                    <Label Text="{Binding StockQuantity, StringFormat='Stock: {0}'}" />
-                </HorizontalStackLayout>
+    <ContentPage Title="Users">
+        <Grid RowDefinitions="Auto, *" Padding="20" RowSpacing="10">
+            <Button Grid.Row="0" Text="Add Admin User" Clicked="OnAddUserClicked" BackgroundColor="Orange" TextColor="Black"/>
+            
+            <CollectionView Grid.Row="1" x:Name="UsersList">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Border Padding="10" Margin="0,5" Stroke="Orange" StrokeThickness="1">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="5"/>
+                            </Border.StrokeShape>
+                            <VerticalStackLayout>
+                                <Label Text="{Binding FullName}" FontAttributes="Bold" />
+                                <Label Text="{Binding Role}" TextColor="Gray" FontSize="12"/>
+                            </VerticalStackLayout>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </Grid>
+    </ContentPage>
+
+    <ContentPage Title="Sales">
+        <ScrollView Padding="20">
+            <VerticalStackLayout Spacing="10">
+                <Button Text="Generate Sales Report" Clicked="OnGenerateReportClicked" />
+                <Label x:Name="ReportLabel" Text="Click button to load sales..." TextColor="Black" />
             </VerticalStackLayout>
-        </Border>
-    </DataTemplate>
-        </CollectionView.ItemTemplate>
-    </CollectionView>
+        </ScrollView>
+    </ContentPage>
 
-</VerticalStackLayout>
-    </ScrollView>
-
-</ContentPage>
+</TabbedPage>

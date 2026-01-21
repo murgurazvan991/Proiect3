@@ -1,54 +1,87 @@
-﻿using SharedData;   
+﻿using SharedData;
 using Microsoft.EntityFrameworkCore;
 
 namespace Frontend;
 
-public partial class MainPage : ContentPage
+// Note: Inherit from TabbedPage now!
+public partial class MainPage : TabbedPage
 {
     private readonly ProductServices _productServices;
+    private readonly UserServices _userServices;
+    private readonly SaleServices _saleServices;
     private readonly AppDbContext _db;
 
-    
-    public MainPage(ProductServices productServices, AppDbContext db)
+    // Inject ALL services
+    public MainPage(ProductServices productServices, UserServices userServices, SaleServices saleServices, AppDbContext db)
     {
         InitializeComponent();
         _productServices = productServices;
+        _userServices = userServices;
+        _saleServices = saleServices;
         _db = db;
 
         _db.Database.EnsureCreated();
-
-        LoadData();
     }
 
-    // defined as 'async void' so we can await inside it without blocking the UI
-    private async void LoadData()
+    protected override async void OnAppearing()
     {
-        // 1. Ask the service for all products (awaiting the Task)
-        var products = await _productServices.GetAllAsync(null, null);
-        
-        // 2. Put the list into the CollectionView so the user sees it
-        ProductsList.ItemsSource = products;
+        base.OnAppearing();
+        await LoadProducts();
+        await LoadUsers();
     }
 
-    private async void OnLoadProductsClicked(object sender, EventArgs e)
+    // --- PRODUCT LOGIC ---
+    private async Task LoadProducts()
     {
-        int count = await _db.Products.CountAsync();
-        if (count == 0)
+        ProductsList.ItemsSource = await _productServices.GetAllAsync(null, null);
+    }
+
+    private async void OnAddProductClicked(object sender, EventArgs e)
+    {
+        // Add a demo product
+        if (!_db.Categories.Any()) 
         {
-            var category = new Category { Name = "Demo Category" };
-            _db.Categories.Add(category);
-            
-            await _productServices.AddProductAsync(new Product 
-            { 
-                Name = "Maui Product", 
-                Price = 10.99f, 
-                StockQuantity = 100,
-                Category = category,
-                CategoryId = category.Id
-            });
+            _db.Categories.Add(new Category { Name = "General" });
+            await _db.SaveChangesAsync();
         }
+        
+        var cat = await _db.Categories.FirstAsync();
+        await _productServices.AddProductAsync(new Product 
+        { 
+            Name = "New Item " + DateTime.Now.Second, 
+            Price = 50, 
+            Category = cat, 
+            CategoryId = cat.Id 
+        });
 
+        await LoadProducts();
+    }
 
-        LoadData();
+    // --- USER LOGIC ---
+    private async Task LoadUsers()
+    {
+        UsersList.ItemsSource = await _userServices.GetAllUsersAsync();
+    }
+
+    private async void OnAddUserClicked(object sender, EventArgs e)
+    {
+        await _userServices.AddUserAsync(new User
+        {
+            FullName = "Admin " + DateTime.Now.Second,
+            Role = "Administrator",
+            IsActive = true,
+            PasswordHash = "secret",
+            PasswordSalt = "salt"
+        });
+        
+        await LoadUsers();
+    }
+
+    // --- SALES LOGIC ---
+    private async void OnGenerateReportClicked(object sender, EventArgs e)
+    {
+        // Generate a text report using your SaleServices
+        string report = await _saleServices.GetSalesReportAsync();
+        ReportLabel.Text = report;
     }
 }

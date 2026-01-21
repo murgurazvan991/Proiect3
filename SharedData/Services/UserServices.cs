@@ -1,4 +1,7 @@
-namespace SharedData;
+using Microsoft.EntityFrameworkCore;
+
+namespace SharedData; 
+
 public class UserServices
 {
     private readonly AppDbContext _db;
@@ -8,84 +11,34 @@ public class UserServices
         _db = db;
     }
 
-    public void AddUser(User user)
+    public async Task<List<User>> GetAllUsersAsync()
     {
-        _db.Users.Add(user);
-        _db.SaveChanges();
-        Console.WriteLine($"User with id {user.Id} added successfully.");
+        return await _db.Users.ToListAsync();
     }
 
-    public void RemoveUser(int userId)
+    public async Task AddUserAsync(User user)
     {
-        var user = _db.Users.Find(userId);
+        _db.Users.Add(user);
+        await _db.SaveChangesAsync();
+    }
+
+    public async Task RemoveUserAsync(int userId)
+    {
+        var user = await _db.Users.FindAsync(userId);
         if (user != null)
         {
             _db.Users.Remove(user);
-            _db.SaveChanges();
-            Console.WriteLine($"User with id {userId} removed successfully.");
-        }
-        else
-        {
-            Console.WriteLine($"User with id {userId} not found.");
+            await _db.SaveChangesAsync();
         }
     }
 
-    public void ChangePassword(int userId, string newPasswordHash)
+    public async Task ChangePasswordAsync(int userId, string newPasswordHash)
     {
-        var user = _db.Users.Find(userId);
+        var user = await _db.Users.FindAsync(userId);
         if (user != null)
         {
             user.PasswordHash = newPasswordHash;
-            _db.SaveChanges();
-            Console.WriteLine($"Password for user with id {userId} changed successfully.");
-        }
-        else
-        {
-            Console.WriteLine($"User with id {userId} not found.");
-        }
-    }
-
-    public void SetUserActiveStatus(int userId, bool isActive)
-    {
-        var user = _db.Users.Find(userId);
-        if (user != null)
-        {
-            user.IsActive = isActive;
-            _db.SaveChanges();
-            Console.WriteLine($"User with id {userId} active status set to {isActive}.");
-        }
-        else
-        {
-            Console.WriteLine($"User with id {userId} not found.");
-        }
-    }
-
-    public void GetPasswordHash(int userId)
-    {
-        var user = _db.Users.Find(userId);
-        if (user != null)
-        {
-            Console.WriteLine($"Password hash for user with id {userId} is {user.PasswordHash}.");
-        }
-        else
-        {
-            Console.WriteLine($"User with id {userId} not found.");
-        }
-    }
-
-    public void UpdateUserData(int userId, string fullName, string role)
-    {
-        var user = _db.Users.Find(userId);
-        if (user != null)
-        {
-            user.FullName = fullName;
-            user.Role = role;
-            _db.SaveChanges();
-            Console.WriteLine($"User data for user with id {userId} updated successfully.");
-        }
-        else
-        {
-            Console.WriteLine($"User with id {userId} not found.");
+            await _db.SaveChangesAsync();
         }
     }
 }
