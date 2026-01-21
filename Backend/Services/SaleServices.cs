@@ -15,7 +15,25 @@ public class SaleServices
     }
 
 
-    //Mi-o fost lene sa o mai gandesc momentan
-    //public string GetSales()
-    
+    public string GetSales()
+    {
+        var sales = _db.Sales.ToList();
+        var saleItems = _db.SaleItems.ToList();
+        
+        string result = "";
+        
+        foreach (var sale in sales)
+        {
+            result += $"Sale ID: {sale.Id}, Date: {sale.Date}, User ID: {sale.UserId}, Total Amount: {sale.TotalAmount}\n";
+            
+            var itemsFromSale = saleItems.Where(si => si.SaleId == sale.Id).ToList();
+            
+            foreach (var item in itemsFromSale)
+            {
+                result += $"  - Item ID: {item.Id}, Product ID: {item.ProductId}, Quantity: {item.Quantity}, Unit Price: {item.UnitPrice}, Line Total: {item.LineTotal}\n";
+            }
+        }
+        
+        return result;
+    }
 }

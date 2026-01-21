@@ -29,9 +29,62 @@ public class UserServices
         }
     }
 
-    //DE VAZUT dupa ce aflam care-i treab cu autentificarea
-    //public void ChangePassword()
+    public void ChangePassword(int userId, string newPasswordHash)
+    {
+        var user = _db.Users.Find(userId);
+        if (user != null)
+        {
+            user.PasswordHash = newPasswordHash;
+            _db.SaveChanges();
+            Console.WriteLine($"Password for user with id {userId} changed successfully.");
+        }
+        else
+        {
+            Console.WriteLine($"User with id {userId} not found.");
+        }
+    }
 
-    //Same
-    //public void UpdateUserData(int userId)
+    public void SetUserActiveStatus(int userId, bool isActive)
+    {
+        var user = _db.Users.Find(userId);
+        if (user != null)
+        {
+            user.IsActive = isActive;
+            _db.SaveChanges();
+            Console.WriteLine($"User with id {userId} active status set to {isActive}.");
+        }
+        else
+        {
+            Console.WriteLine($"User with id {userId} not found.");
+        }
+    }
+
+    public void GetPasswordHash(int userId)
+    {
+        var user = _db.Users.Find(userId);
+        if (user != null)
+        {
+            Console.WriteLine($"Password hash for user with id {userId} is {user.PasswordHash}.");
+        }
+        else
+        {
+            Console.WriteLine($"User with id {userId} not found.");
+        }
+    }
+
+    public void UpdateUserData(int userId, string fullName, string role)
+    {
+        var user = _db.Users.Find(userId);
+        if (user != null)
+        {
+            user.FullName = fullName;
+            user.Role = role;
+            _db.SaveChanges();
+            Console.WriteLine($"User data for user with id {userId} updated successfully.");
+        }
+        else
+        {
+            Console.WriteLine($"User with id {userId} not found.");
+        }
+    }
 }
