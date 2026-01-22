@@ -17,8 +17,6 @@ public class SaleServices
         await _db.SaveChangesAsync();
     }
 
-    // Changed to Async. 
-    // Ideally, this should return List<Sale>, but returning a report string is fine for now.
     public async Task<string> GetSalesReportAsync()
     {
         var sales = await _db.Sales.ToListAsync();

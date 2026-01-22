@@ -11,6 +11,8 @@ public partial class MainPage : TabbedPage
     private readonly SaleServices _saleServices;
     private readonly AppDbContext _db;
 
+    private bool _isInitialized = false;
+
     // Inject ALL services
     public MainPage(ProductServices productServices, UserServices userServices, SaleServices saleServices, AppDbContext db)
     {
@@ -20,14 +22,26 @@ public partial class MainPage : TabbedPage
         _saleServices = saleServices;
         _db = db;
 
-        _db.Database.EnsureDeleted();
-
-        _db.Database.EnsureCreated();
     }
 
     protected override async void OnAppearing()
     {
         base.OnAppearing();
+
+        if (!_isInitialized)
+        {
+            // Run DB operations on a background thread to prevent crashing/freezing
+            await Task.Run(() => 
+            {
+                // CAUTION: EnsureDeleted() wipes your data every restart. 
+                // Remove it if you want to keep your data.
+                _db.Database.EnsureDeleted(); 
+                _db.Database.EnsureCreated();
+            });
+
+            _isInitialized = true;
+        }
+
         await LoadProducts();
         await LoadUsers();
     }

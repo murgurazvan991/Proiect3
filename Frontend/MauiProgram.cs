@@ -19,7 +19,6 @@ public static class MauiProgram
         
         builder.Services.AddTransient<AppDbContext>(s => new AppDbContext(dbPath));
 
-        // Register Services (Now verified to be in SharedData)
         builder.Services.AddTransient<ProductServices>();
         builder.Services.AddTransient<CategoryServices>();
 		builder.Services.AddTransient<SaleServices>();	
